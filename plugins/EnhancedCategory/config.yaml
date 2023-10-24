@@ -1,0 +1,29 @@
+# plugin name
+id: EnhancedCategory
+name: EnhancedCategory
+version: 1.11
+
+# localization
+l10n_class: EnhancedCategory::L10N
+
+# object types
+schema_version: 0.2
+object_types:
+    category:
+        disabled:
+            type: boolean
+            not_null: 0
+            default: 0
+
+# settings
+config_template: config.tmpl
+settings:
+    enabled:
+        Default: 0
+
+# callback
+callbacks:
+    cms_save_filter.entry: $EnhancedCategory::EnhancedCategory::save_filter
+    cms_pre_save.category: $EnhancedCategory::EnhancedCategory::cms_pre_save_category
+    MT::App::CMS::template_param.edit_entry: $EnhancedCategory::EnhancedCategory::edit_entry
+    MT::App::CMS::template_param.edit_category: $EnhancedCategory::EnhancedCategory::edit_category
