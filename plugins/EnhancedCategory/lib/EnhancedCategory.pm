@@ -51,12 +51,24 @@ sub edit_entry {
 	my $css = join("\n", map({
 		'input[name="add_category_id_'.$_.'"] { display: none }'
 	} @ids));
+	my $js = join("\n", map({
+		'document.addEventListener("click", function(e) {
+            if (e.target && (e.target.id == "add_category_id_'.$_.'" || e.target.querySelector("#add_category_id_'.$_.'"))) {
+                e.preventDefault();
+                e.stopPropagation();
+                e.stopImmediatePropagation();
+            }
+        }, {capture: true});'
+	} @ids));
 
 	$param->{'html_head'} ||= '';
 	$param->{'html_head'} .= <<__EOH__;
 <style type="text/css">
 $css
 </style>
+<script type="module">
+$js
+</script>
 __EOH__
 }
 
